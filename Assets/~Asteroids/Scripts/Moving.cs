@@ -7,56 +7,58 @@ using UnityEngine;
 // {} - Braces
 // [] - Brackets
 // () - Parenthesis
-
-public class Moving : MonoBehaviour
+namespace Asteroids
 {
-
-    // Member Variables
-    public float rotationSpeed = 360;
-    public float movementSpeed = 10;
-
-    void Movement()
+    public class Moving : MonoBehaviour
     {
-        //Move up
-        if (Input.GetKey(KeyCode.UpArrow))
+
+        // Member Variables
+        public float rotationSpeed = 360;
+        public float movementSpeed = 10;
+
+        void Movement()
         {
-            //Move the player up by movementSpeed
-            //Vector3 position = transform.position;
-            //position.y += movementSpeed * Time.deltaTime;
-            //transform.position = position;
-            transform.Translate(Vector3.up * movementSpeed * Time.deltaTime);
+            //Move up
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                //Move the player up by movementSpeed
+                //Vector3 position = transform.position;
+                //position.y += movementSpeed * Time.deltaTime;
+                //transform.position = position;
+                transform.Translate(Vector3.up * movementSpeed * Time.deltaTime);
+            }
+
+            // Move down
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                transform.Translate(Vector3.down * movementSpeed * Time.deltaTime);
+            }
         }
 
-        // Move down
-        if (Input.GetKey(KeyCode.DownArrow))
+        void Rotation()
         {
-            transform.Translate(Vector3.down * movementSpeed * Time.deltaTime);
+            // Rotate right
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                transform.Rotate(Vector3.back, rotationSpeed * Time.deltaTime);
+            }
+
+            // Rotate left
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
+            }
+        }
+        // Update is called once per frame
+        void Update()
+        {
+            //Call 'Movement()' function
+            Movement();
+
+            // Call 'Rotation()' function
+            Rotation();
+
+
         }
     }
-
-    void Rotation()
-    {
-        // Rotate right
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            transform.Rotate(Vector3.back, rotationSpeed * Time.deltaTime);
-        }
-
-        // Rotate left
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
-        }
-    }
-	// Update is called once per frame
-	void Update ()
-    {
-        //Call 'Movement()' function
-        Movement();
-
-        // Call 'Rotation()' function
-        Rotation();
-
-        
-     }
 }
