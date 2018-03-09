@@ -11,7 +11,7 @@ namespace GoneHome
 
         public UnityEvent onDeath;
 
-        void onTriggerEnter(Collider other)
+        void OnTriggerEnter(Collider other)
         {
             //Check if the entity came into contact
             //with a death object

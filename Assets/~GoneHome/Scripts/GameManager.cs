@@ -22,7 +22,7 @@ namespace GoneHome
         {
 
             // Grab all enemies and reset them
-            Enemy[] enemies = FindObjectOfType<Enemy>();
+            FollowEnemy[] enemies = FindObjectsOfType<FollowEnemy>();
             // Loop through all enemies and reset them
             for (int i = 0; i < enemies.Length; i++)
             {
