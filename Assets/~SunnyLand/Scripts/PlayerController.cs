@@ -27,7 +27,7 @@ namespace SunnyLand
 
         private Vector3 groundNormal = Vector3.up;
         private int currentJump = 0;
-        private float inputH, unputV;
+        private float inputH, inputV;
 
         // References
         private SpriteRenderer rend;
@@ -40,24 +40,26 @@ namespace SunnyLand
             rend = GetComponent<SpriteRenderer>();
             rigid = GetComponent<Rigidbody2D>();
         }
-
         // Update is called once per frame
         void Update()
         {
+            // Constantly update player mechanics
             PerformMove();
         }
         void FixedUpdate()
         {
-        
+
         }
         void OnDrawGizmos()
         {
+            // Draw the ground ray
             Ray groundRay = new Ray(transform.position, Vector3.down);
             Gizmos.DrawLine(groundRay.origin, groundRay.origin + groundRay.direction * rayDistance);
+            // Draw the 'right' direction
             Vector3 right = Vector3.Cross(groundNormal, Vector3.forward);
             Gizmos.color = Color.blue;
             Gizmos.DrawLine(transform.position - right,
-                transform.position + right);
+                            transform.position + right);
         }
         #endregion
 
@@ -78,7 +80,7 @@ namespace SunnyLand
         public void Move(float horizontal)
         {
             // If there is horizontal input
-            if (horizontal != 0)
+            if(horizontal != 0)
             {
                 // Flip the sprite based on input direction
                 rend.flipX = horizontal < 0;
@@ -94,13 +96,14 @@ namespace SunnyLand
         {
 
         }
-        //Actions
+        // Actions
         void PerformClimb()
         {
 
         }
         void PerformMove()
         {
+            // Calculate 'right' depending on ground surface normal
             Vector3 right = Vector3.Cross(groundNormal, Vector3.forward);
             // Add force in the direction of horizontal movement
             rigid.AddForce(right * inputH * speed);
@@ -112,7 +115,7 @@ namespace SunnyLand
 
         }
         // Detectors
-        void DetectClimable()
+        void DetectClimbable()
         {
 
         }
@@ -131,11 +134,15 @@ namespace SunnyLand
         // Helpers
         void LimitVelocity()
         {
+            // Copy current velocity to smaller variable name
             Vector3 vel = rigid.velocity;
-            if (vel.magnitude> maxVelocity)
+            // Check if velocity reached max vel
+            if (vel.magnitude > maxVelocity)
             {
+                // Cap the velocity
                 vel = vel.normalized * maxVelocity;
             }
+            // Overwrite old velocity
             rigid.velocity = vel;
         }
         void StopClimbing()

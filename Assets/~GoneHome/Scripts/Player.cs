@@ -6,58 +6,60 @@ namespace GoneHome
 {
     public class Player : MonoBehaviour
     {
-
         public float acceleration = 10f;
         public float maxVelocity = 20f;
         public GameObject deathParticles; // Explosion prefab
 
         private Rigidbody rigid;
+        private Vector3 spawnPoint; // ADDED THIS
 
-        private Vector3 spawnPoint; 
-
+        #region Unity Functions
         // Use this for initialization
         void Start()
         {
             rigid = GetComponent<Rigidbody>();
-            spawnPoint = transform.position; //store starting pos
+
+            spawnPoint = transform.position; // Store starting pos
         }
 
         // Update is called once per frame
         void Update()
         {
-            
             // Get input axis
             float inputH = Input.GetAxis("Horizontal");
             float inputV = Input.GetAxis("Vertical");
 
             // Create a directional vector with input
-        
             Vector3 inputDir = new Vector3(inputH, 0, inputV);
 
-            //Depending on rotation of camera, change direction of input
-            inputDir = Quaternion.AngleAxis(Camera.main.transform.eulerAngles.y, Vector3.up) * inputDir;
+            // Depending on rotation of camera, change the direction of input
+            Transform cam = Camera.main.transform;
+            inputDir = Quaternion.AngleAxis(cam.eulerAngles.y, Vector3.up) * inputDir;
 
+            // Acceleration logic
             rigid.AddForce(inputDir * acceleration);
 
-            // check if out velocity goes over maxVelocity
+            // Check if our velocity goes over maxVelocity
             if (rigid.velocity.magnitude > maxVelocity)
             {
-
-                //cap the velocity down to max
+                // Cap the velocity down to max
                 rigid.velocity = rigid.velocity.normalized * maxVelocity;
             }
         }
+        #endregion
+
+        #region Custom Functions
         public void Reset()
         {
             // Spawn death particles here
             GameObject clone = Instantiate(deathParticles);
-            // Set positon of particles to player poosition;
-            clone.transform.position = transform.position;
-            //reset position back to spawn point
+            // Set position of particles to player position
+            clone.transform.position = transform.position; 
+            // Reset position back to spawn point
             transform.position = spawnPoint;
-
-            //reset the player's velocity
+            // Reset the player's velocity
             rigid.velocity = Vector3.zero;
         }
+        #endregion
     }
 }

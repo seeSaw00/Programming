@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//Clean Code: CTRL + K + D (in that order)
+// Clean Code: CTRL + K + D (in that order)
 
 // {} - Braces
 // [] - Brackets
@@ -11,17 +11,16 @@ namespace Asteroids
 {
     public class Moving : MonoBehaviour
     {
-
         // Member Variables
-        public float rotationSpeed = 360;
-        public float movementSpeed = 10;
+        public float rotationSpeed;
+        public float movementSpeed;
 
         void Movement()
         {
-            //Move up
+            // Move up
             if (Input.GetKey(KeyCode.UpArrow))
             {
-                //Move the player up by movementSpeed
+                // Move the player up by movementSpeed
                 //Vector3 position = transform.position;
                 //position.y += movementSpeed * Time.deltaTime;
                 //transform.position = position;
@@ -37,28 +36,23 @@ namespace Asteroids
 
         void Rotation()
         {
-            // Rotate right
+            // Rotate Right
             if (Input.GetKey(KeyCode.RightArrow))
             {
                 transform.Rotate(Vector3.back, rotationSpeed * Time.deltaTime);
             }
-
-            // Rotate left
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
-            }
         }
+
+        // TASK: Make a 'Rotation()' function and put rotation code in it
+
         // Update is called once per frame
         void Update()
         {
-            //Call 'Movement()' function
+            // Call 'Movement()' function
             Movement();
 
             // Call 'Rotation()' function
             Rotation();
-
-
         }
     }
 }

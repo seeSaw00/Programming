@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 using UnityEngine.AI;
 
 namespace GoneHome
 {
-
     public class FollowEnemy : MonoBehaviour
     {
         public Transform target;
-
         private NavMeshAgent agent;
+
         private Vector3 spawnPoint;
 
         // Use this for initialization
@@ -28,6 +26,7 @@ namespace GoneHome
         {
             agent.SetDestination(target.position);
         }
+
         public void Reset()
         {
             agent.enabled = false;
@@ -35,4 +34,4 @@ namespace GoneHome
             agent.enabled = true;
         }
     }
- }
+}
